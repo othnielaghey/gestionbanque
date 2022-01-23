@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestion Pharmacie|WELCOME</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/css/material-design-iconic-font.min.css}" rel="stylesheet">
+    <link th:href="@{/css/app.min.1.css}" rel="stylesheet">
+    <link th:href="@{/css/app.min.1.css}" rel="stylesheet">
+    <link th:href="@{/css/app.min.2.css}" rel="stylesheet">
+    <link th:href="@{/css/sweet-alert.css}" rel="stylesheet">
+    <link th:href="@{/css/jquery.datetimepicker.css}" rel="stylesheet">
+    <link th:href="@{/css/jquery.bootgrid.min.css}" rel="stylesheet">
+    <link th:href="@{/css/bootstrap-select.css}" rel="stylesheet">
+    <link th:href="@{/css/utils.css}" rel="stylesheet">
+    <link th:href="@{/css/typography.css}" rel="stylesheet">
+    <link th:href="@{/css/fontawesome/fontawesome.css}" rel="stylesheet">
+    <link th:href="@{/css/loaders.css}" rel="stylesheet">
+</head>
+<body>
+<header id="header">
+    <ul class="header-inner">
+        <li id="menu-trigger" data-trigger="#sidebar">
+            <div class="line-wrap">
+                <div class="line top"></div>
+                <div class="line center"></div>
+                <div class="line bottom"></div>
+            </div>
+        </li>
+
+        <li class="logo hidden-xs">
+            <a><b>Gestion Banque</b></a>
+        </li>
+
+        <li class="pull-right">
+
+            <ul class="top-menu">
+                <li class="dropdown">
+                <li class="dropdown hidden-xs">
+                    <a data-toggle="dropdown" class="tm-notification" href="#"><i class="tmn-counts"><span id="spantotal">2</span></i></a>
+                </li>
+                </li>
+                <li id="toggle-width">
+                    <div class="toggle-switch">
+                        <input id="tw-switch" type="checkbox" hidden="hidden">
+                        <label for="tw-switch" class="ts-helper"></label>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</header>
+
+<section id="main">
+    <aside id="sidebar">
+        <div class="sidebar-inner c-overflow">
+            <div class="profile-menu">
+
+                <a href="#">
+                    <div class="profile-pic">
+
+                    </div>
+
+                    <div class="profile-info">
+                        DEFAULT USER
+                        <i class="zmdi zmdi-arrow-drop-down"></i>
+                    </div>
+                </a>
+                <ul class="main-menu">
+                    <li class="" >
+                        <a href="/password"><i class="zmdi zmdi-account"></i> Modifier vos paramètres</a>
+                    </li>
+                    <li>
+                        <a
+                                href="/destroy">
+                                <!--onclick="event.preventDefault();-->
+										<!--document.getElementById('logout-form').submit();">-->
+                            <i class="zmdi zmdi-power-off"></i> Se déconnecter
+                        </a>
+
+                        <!--<form id="logout-form" action="@{/destroy}" method="GET" style="display: none;">-->
+
+                        <!--</form>-->
+                    </li>
+                </ul>
+
+            </div>
+            <ul class="main-menu">
+                <li>
+                    <a href="/homes"><i class="zmdi zmdi-home"></i> Bienvenue</a>
+                </li>
+                <li>
+                    <a href="/compte"><i class="zmdi zmdi-file-text"></i>Gestion des Comptes</a>
+                </li>
+                <li>
+                    <a href="/client"><i class="zmdi zmdi-file-text"></i>Gestion des Clients</a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+</section>
+<section id="content">
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h2><b>Bienvenue sur Application Gestion de la pharmacie</b></h2>
+            </div>
+            <div class="card-body card-padding">
+                <img class="img-responsive" th:src="@{/images/allreport_home.jpeg}" width="100%" height="30%"/>
+            </div>
+
+        </div>
+    </div>
+</section>
+</body>
+<script type="text/javascript" th:src="@{/js/material_js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/sweet-alert.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/jquery.nicescroll.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/waves.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/functions.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/jquery.datetimepicker.full.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/jquery.bootgrid.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/bootstrap-select.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/fileinput.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/jquery.flot.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/jquery.flot.resize.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/curvedLines.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/jquery.sparkline.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/jquery.easypiechart.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/curved-line-chart.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/line-chart.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/charts.js}"></script>
+</html>

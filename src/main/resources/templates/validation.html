@@ -1,0 +1,349 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestion Pharmacie</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/css/material-design-iconic-font.min.css}" rel="stylesheet">
+    <link th:href="@{/css/app.min.1.css}" rel="stylesheet">
+    <link th:href="@{/css/app.min.1.css}" rel="stylesheet">
+    <link th:href="@{/css/app.min.2.css}" rel="stylesheet">
+    <link th:href="@{/css/sweet-alert.css}" rel="stylesheet">
+    <link th:href="@{/css/jquery.datetimepicker.css}" rel="stylesheet">
+    <link th:href="@{/css/jquery.bootgrid.min.css}" rel="stylesheet">
+    <link th:href="@{/css/bootstrap-select.css}" rel="stylesheet">
+    <link th:href="@{/css/utils.css}" rel="stylesheet">
+    <link th:href="@{/css/typography.css}" rel="stylesheet">
+    <link th:href="@{/css/fontawesome/fontawesome.css}" rel="stylesheet">
+    <link th:href="@{/css/loaders.css}" rel="stylesheet">
+</head>
+<body>
+<header id="header">
+    <ul class="header-inner">
+        <li id="menu-trigger" data-trigger="#sidebar">
+            <div class="line-wrap">
+                <div class="line top"></div>
+                <div class="line center"></div>
+                <div class="line bottom"></div>
+            </div>
+        </li>
+
+        <li class="logo hidden-xs">
+            <a><b>Application Gestion de Pharmacie </b></a>
+        </li>
+
+        <li class="pull-right">
+
+            <ul class="top-menu">
+                <li class="dropdown">
+                <li class="dropdown hidden-xs">
+                    <a data-toggle="dropdown" class="tm-notification" href="#"><i class="tmn-counts"><span id="spantotal"></span></i></a>
+                </li>
+                </li>
+                <li id="toggle-width">
+                    <div class="toggle-switch">
+                        <input id="tw-switch" type="checkbox">
+                        <label for="tw-switch" class="ts-helper"></label>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</header>
+
+<section id="main">
+    <aside id="sidebar">
+        <div class="sidebar-inner c-overflow">
+            <div class="profile-menu">
+
+                <a href="#">
+                    <div class="profile-pic">
+
+                    </div>
+
+                    <div class="profile-info" >
+                        <h3><b th:text="${save_user}" style="color: #761c19"></b></h3>
+                        <i class="zmdi zmdi-arrow-drop-down"></i>
+                    </div>
+                </a>
+                <ul class="main-menu">
+
+                    <li>
+                        <a
+                                href="/destroy">
+                            <!--onclick="event.preventDefault();-->
+                            <!--document.getElementById('logout-form').submit();">-->
+                            <i class="zmdi zmdi-power-off"></i> Se déconnecter
+                        </a>
+
+                        <!--<form id="logout-form" action="@{/destroy}" method="GET" style="display: none;">-->
+
+                        <!--</form>-->
+                    </li>
+                </ul>
+
+            </div>
+            <ul class="main-menu">
+                <li>
+                    <a href="/homes"><i class="zmdi zmdi-home"></i> Bienvenue</a>
+                </li>
+                <li>
+                    <a href="/validation"><i class="zmdi zmdi-file-text"></i>Gestion des Médicaments</a>
+                </li>
+                <li>
+                    <a href="/pharmacie"><i class="zmdi zmdi-file-text"></i>Gestion des Pharmaciens</a>
+                </li>
+            </ul>
+
+        </div>
+    </aside>
+</section>
+<section id="content">
+    <div class="lds-ring hide"><div></div><div></div><div></div><div></div></div>
+    <div class="container">
+        <div th:if="${save_success}" class="alert alert-success">
+            <h3 align="center" style="color: #8b211e">Saisie Validée avec succès</h3>
+        </div>
+
+        <div th:if="${save_error}" class="alert alert-danger">
+            <h3 align="center" style="color: #8b211e">Echec saisie </h3>
+        </div>
+
+        <div th:if="${delete_success}" class="alert alert-danger">
+            <h3 align="center" style="color: #8b211e">Suppression Effectué avec succès </h3>
+        </div>
+
+        <div class="card">
+            <div class="card-header bgm-bluegray" align="center" height="300px" width="100">
+                <h2>Interface de Gestions des medicaments</h2>
+
+            </div>
+        </div>
+
+
+
+    </div >
+        <br/>
+    <div class="container">
+        <div class="card">
+             <div class="card-body card-padding">
+<!--                <div class="row">-->
+                    <div class="row">
+                    <div class="row col-sm-3">
+                    <input type="text" name="medicament" class="form-control input-sm fileds" id="med" placeholder="Saisir le medicament" >
+                    </div>
+                    <div class="row col-sm-2">
+                    </div>
+                    <div class="row col-sm-3">
+                        <input type="text" name="type" class="form-control input-sm fileds" id="type" placeholder="Saisir type" >
+                    </div>
+                    </div>
+
+                 <br/>
+                    <div class="row">
+                    <div class="row col-sm-3">
+                    <button class="btn btn-primary" id="sauve">Enregistrer </button>
+                    <br/>
+                    </div>
+                    </div>
+                     <br/>
+                     <br/>
+                    <div>
+
+                    </div>
+                    <div  class="table-responsive">
+                        <table id="data-table-command" class="table table-striped table-vmiddle">
+                            <thead>
+                            <tr >
+                                <th data-column-id="id" data-visible="false">ID</th>
+                                <th data-column-id="designation"> medicament</th>
+                                <th data-column-id="type" ><b>type de Medicament</b></th>
+                                <th data-column-id="commands" data-formatter="commands" data-sortable="false">Commandes</th>
+
+                                <!--<th data-column-id="commands" data-formatter="commands" data-sortable="false">Commandes</th>-->
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="det: ${listMed}">
+                                <td th:text="${det.id }"></td>
+                                <td th:text="${det.designation}"></td>
+                                <td th:text="${det.type}"></td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+             </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="modal fade" id="confirmEdit" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Confirmation de l'Edition</h4>
+                    </div>
+                    <input type="text" id="coded" name="coded" hidden="hidden"/>
+                    <div class="card-body card-padding">
+                        <div class="row">
+                            <div class="col-sm-12 m-b-20">
+                                <h4 style="color : red"><b>Cette action va éditer les informations.</b></h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="row col-sm-3">
+                                <input type="text" name="medicamentupdate" class="form-control input-sm fileds" id="medupdate" placeholder="Saisir le medicament" >
+                            </div>
+                            <div class="row col-sm-2">
+                            </div>
+                            <div class="row col-sm-3">
+                                <input type="text" name="typeupdate" class="form-control input-sm fileds" id="typeupdate" placeholder="Saisir type" >
+                            </div>
+                        </div>
+                        <div class="row">
+
+                        </div>
+                        </br>
+                        <div class="row">
+                            <div class="col-sm-12 m-b-20">
+                                <h4 style="color : red"><b>Voulez-vous continuer ?</b></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" data-dismiss="modal">Non</button>
+                        <button class="btn btn-primary" id="yesEdit">Oui</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="card">
+        <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Confirmation de la suppression</h4>
+                    </div>
+                    <input type="text" id="delcoded" name="coded"/>
+                    <div class="card-body card-padding">
+                        <div class="row">
+                            <div class="col-sm-12 m-b-20">
+                                <h4 style="color : red"><b>Êtes-vous sûr de vouloir supprimer ?</b></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" data-dismiss="modal">Non</button>
+                        <button class="btn btn-primary" id="yesDelete">Oui</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</section>
+</body>
+<script type="text/javascript" th:src="@{/js/material_js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/sweet-alert.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/jquery.nicescroll.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/waves.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/functions.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/jquery.datetimepicker.full.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/jquery.bootgrid.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/bootstrap-select.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/fileinput.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/jquery.flot.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/jquery.flot.resize.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/curvedLines.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/jquery.sparkline.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/jquery.easypiechart.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/curved-line-chart.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/line-chart.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/charts.js}"></script>
+<script th:src="@{/js/functions.js}"></script>
+
+</html>
+<script type="text/javascript">
+
+    $('#sauve').click(function() {
+
+     //alert("ok");
+            window.location.href='/insert?desgnation='+$('#med').val() + '&type='+$('#type').val();
+
+
+        }
+    );
+
+
+    $('#yesEdit').click(function () {
+        window.location.href='/update?dsignation='+$('#medupdate').val() + '&type='+$('#typeupdate').val() + '&olddesignation='+$('#coded').val();
+
+
+    });
+
+    $('#yesDelete').click(function () {
+        window.location.href='/delete?id_med='+$('#delcoded').val();
+
+
+    });
+
+
+
+    var grid = $("#data-table-command").bootgrid({
+        css: {
+            icon: 'zmdi icon',
+            iconColumns: 'zmdi-view-module',
+            iconDown: 'zmdi-expand-more',
+            iconRefresh: 'zmdi-refresh',
+            iconUp: 'zmdi-expand-less'
+        },
+        formatters: {
+            "commands": function(column, row) {
+                return "<button type=\"button\" title='Validation Détails' class=\"btn bgm-orange btn-icon edit\"  data-toggle=\"modal\" data-target=\"#confirmEdit\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-check\" ></span></button> " +
+                "<button type=\"button\" title='Suppression Numéro' class=\"btn bgm-red btn-icon delete\" data-toggle=\"modal\" data-target=\"#confirmDelete\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-shopping-basket\"></span></button>";
+            }
+        }
+    }).on("loaded.rs.jquery.bootgrid", function () {
+        grid.find(".edit").on("click", function (e) {
+            var secureCode = $(this).data("row-id");
+
+            $('#coded').val(secureCode);
+            $($(this).attr("data-target")).modal("show");
+        }).end().find(".delete").on("click", function (e) {
+            var secureCodes = $(this).data("row-id");
+
+            $('#delcoded').val(secureCodes);
+            $($(this).attr("data-target")).modal("show");
+        })
+    });
+
+
+    jQuery.datetimepicker.setLocale('fr');
+    $(function(){
+        $('#dateDebut').datetimepicker({
+            timepicker : false,
+            format:'Y-m-d',
+            formatDate:'d-m-Y',
+        });
+    });
+    $(function(){
+        $('#dateFin').datetimepicker({
+            timepicker : false,
+            format:'Y-m-d',
+            formatDate:'d-m-Y',
+        });
+    });
+
+
+
+</script>

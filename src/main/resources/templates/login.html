@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+      integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous" />
+<head>
+    <link rel="icon" href="/image/icone_agri1.png">
+    <meta charset="UTF-8"/>
+    <title>Connectez vous ;-)</title>
+</head>
+<body>
+<div class="container " style="padding-top: 10%">
+    <div  style="width:600px;margin-left: auto;margin-right: auto;margin-top:24px;padding: 24px;">
+        <div class="card shadow-lg">
+            <div class="card-header">
+                <i class="fa fa-user"></i> Connectez-vous s'il vous plaît !
+            </div>
+            <div class="card-block" style="padding: 24px;">
+                <form name="f" th:action="@{/login}" method="post">
+                    <fieldset>
+                        <!-- Thymeleaf + Affichage erreur Spring Security  -->
+                        <div th:if="${param.error}" class="alert alert-danger">
+                            Mot de passe ou nom d'utilisateur incorrect.
+                        </div>
+
+                        <div th:if="${param.logout}" class="alert alert-success">
+                            Vous vous êtes déconnecté.
+                        </div>
+
+                        <!-- debut login -->
+                        <div class="form-group">
+                            <label for="username">Nom d'utilisateur</label>
+                            <input required type="text" class="form-control" id="username" name="username"
+                                   placeholder="Nom d'utilisateur" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Mot de passe</label>
+                            <input type="password" class="form-control " id="password" name="password"
+                                   placeholder="Mot de passe" required="required">
+                        </div>
+
+
+                        <!-- boutton login -->
+                        <div class="form-actions" style="margin-top: 12px; padding-top: 20px; padding-left:75% ">
+                            <button type="submit" class="btn btn-success " >Se connecter</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

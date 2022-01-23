@@ -1,0 +1,604 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>DAPC Application|Centralisation Numéros</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/css/material-design-iconic-font.min.css}" rel="stylesheet">
+    <link th:href="@{/css/app.min.1.css}" rel="stylesheet">
+    <link th:href="@{/css/app.min.1.css}" rel="stylesheet">
+    <link th:href="@{/css/app.min.2.css}" rel="stylesheet">
+    <link th:href="@{/css/sweet-alert.css}" rel="stylesheet">
+    <link th:href="@{/css/jquery.datetimepicker.css}" rel="stylesheet">
+    <link th:href="@{/css/jquery.bootgrid.min.css}" rel="stylesheet">
+    <link th:href="@{/css/bootstrap-select.css}" rel="stylesheet">
+    <link th:href="@{/css/utils.css}" rel="stylesheet">
+    <link th:href="@{/css/typography.css}" rel="stylesheet">
+    <link th:href="@{/css/fontawesome/fontawesome.css}" rel="stylesheet">
+    <link th:href="@{/css/loaders.css}" rel="stylesheet">
+</head>
+<body>
+<header id="header">
+    <ul class="header-inner">
+        <li id="menu-trigger" data-trigger="#sidebar">
+            <div class="line-wrap">
+                <div class="line top"></div>
+                <div class="line center"></div>
+                <div class="line bottom"></div>
+            </div>
+        </li>
+
+        <li class="logo hidden-xs">
+            <a><b>Application Centralisation Numéro</b></a>
+        </li>
+
+        <li class="pull-right">
+
+            <ul class="top-menu">
+                <li class="dropdown">
+                <li class="dropdown hidden-xs">
+                    <a data-toggle="dropdown" class="tm-notification" href="#"><i class="tmn-counts"><span id="spantotal"></span></i></a>
+                </li>
+                </li>
+                <li id="toggle-width">
+                    <div class="toggle-switch">
+                        <input id="tw-switch" type="checkbox">
+                        <label for="tw-switch" class="ts-helper"></label>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</header>
+
+<section id="main">
+    <aside id="sidebar">
+        <div class="sidebar-inner c-overflow">
+            <div class="profile-menu">
+
+                <a href="#">
+                    <div class="profile-pic">
+
+                    </div>
+
+                    <div class="profile-info" >
+                        <h3><b th:text="${save_user}" style="color: #761c19"></b></h3>
+                        <i class="zmdi zmdi-arrow-drop-down"></i>
+                    </div>
+                </a>
+                <ul class="main-menu">
+
+                    <li>
+                        <a
+                                href="/destroy">
+                            <!--onclick="event.preventDefault();-->
+                            <!--document.getElementById('logout-form').submit();">-->
+                            <i class="zmdi zmdi-power-off"></i> Se déconnecter
+                        </a>
+
+                        <!--<form id="logout-form" action="@{/destroy}" method="GET" style="display: none;">-->
+
+                        <!--</form>-->
+                    </li>
+                </ul>
+
+            </div>
+            <ul class="main-menu">
+                <li>
+                    <a href="/home"><i class="zmdi zmdi-home"></i> Bienvenue</a>
+                </li>
+                <li>
+                    <a href="/index"><i class="zmdi zmdi-file-text"></i>Centralisation Numéro à Exclure</a>
+                </li>
+
+            </ul>
+
+        </div>
+    </aside>
+</section>
+<section id="content">
+    <div class="lds-ring hide"><div></div><div></div><div></div><div></div></div>
+    <div class="container">
+        <div th:if="${save_success}" class="alert alert-success">
+            <h3 align="center" style="color: #8b211e">Saisie Validée avec succès</h3>
+        </div>
+
+        <div th:if="${save_error}" class="alert alert-danger">
+            <h3 align="center" style="color: #8b211e">Echec saisie </h3>
+        </div>
+
+        <div th:if="${supp_success}" class="alert alert-danger">
+            <h3 align="center" style="color: #8b211e">Suppression Effectué avec succès </h3>
+        </div>
+
+        <div class="card-header bgm-bluegray" align="center" height="300px" width="100">
+            <h2>Interface de Centralisation Des Numéros à Exclure</h2>
+
+        </div>
+    <div class="card">
+
+            <div class="card-body card-padding">
+                <br/>
+                <!--<div class="row">-->
+                    <!--<label class="radio radio-inline m-r-20 pull-left">-->
+                        <!--<input type="radio" name="traitement" id="operation" value="1" onchange="check()" checked="checked"  required>-->
+                        <!--<i class="input-helper"></i>-->
+                        <!--Opération-->
+                    <!--</label>-->
+
+                    <!--<label class="radio radio-inline m-r-20  pull-left">-->
+                        <!--<input type="radio" name="traitement" id="recuperation" value="2" onchange="check()"  required>-->
+                        <!--<i class="input-helper"></i>-->
+                        <!--Récupération-->
+                    <!--</label>-->
+                <!--</div>-->
+
+                <br/>
+                <div class="row">
+                <div class="row col-sm-1">
+                    <label><h3>Recherche</h3></label>
+                </div >
+                </div >
+                <div class="row" id="divrecu">
+
+                    <div class="row col-sm-3">
+                        <input type="text" class="form-control input-sm fields" id="recherche" name="recher" placeholder="Mobile ">
+
+                    </div >
+                    <div class="row col-sm-1">
+                    </div >
+                    <div class="row col-sm-3">
+                        <button class="btn btn-primary" id="recherchenumero">Rechercher</button>
+                    </div >
+                </div >
+                <br/>
+                <div class="row">
+                    <br/>
+                <label>---------------------------------------------------------------------------------------------------------------------------------------------</label>
+                </div >
+                <div class="row">
+                    <div class="row col-sm-3">
+                        <label><h3>Traitement des données</h3></label>
+                    </div >
+                </div >
+                <br/>
+                <!--<div class="row">-->
+                    <!--<label class="radio radio-inline m-r-20 pull-left">-->
+                        <!--<input type="radio" name="traitement" id="operation" value="1" onchange="check()" checked="checked"  required>-->
+                        <!--<i class="input-helper"></i>-->
+                        <!--Ajout Simple-->
+                    <!--</label>-->
+
+                    <!--<label class="radio radio-inline m-r-20  pull-left">-->
+                        <!--<input type="radio" name="traitement" id="recuperation" value="2" onchange="check()"  required>-->
+                        <!--<i class="input-helper"></i>-->
+                        <!--Ajout Multiple-->
+                    <!--</label>-->
+                <!--</div>-->
+                <!--<br/>-->
+                <div class="row" id="divrech">
+                    <div class="row col-sm-3">
+                        <input type="text" class="form-control input-sm fields" id="Mobile" name="mobile" placeholder="Mobile " required="required">
+
+                    </div >
+                    <div class="row col-sm-1">
+                    </div >
+
+                </div >
+                <br/>
+
+                <!--<div class="row" id="divrecup" >-->
+                    <!--<div class="row col-sm-12">-->
+                        <!--<div >-->
+                        <!--<b>Veuillez choisir le fichier à charger <span style="color: red">*</span></b>-->
+                        <!--</div>-->
+                        <!--<br/>-->
+                        <!--&lt;!&ndash;<input type="text" class="form-control input-sm fields" id="fichier" name="fichier" placeholder="Fichier" required="required">&ndash;&gt;-->
+                        <!--<div >-->
+                            <!--<input id="fichier" name="fichier" type="file" class="file" multiple=true data-preview-file-type="any" required-->
+                                   <!--accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">-->
+                        <!--</div>-->
+                    <!--</div >-->
+                    <!--&lt;!&ndash;<div class="row col-sm-1">&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div >&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="row col-sm-3">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<button class="btn btn-success" id="recuperer">Parcourir</button>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div >&ndash;&gt;-->
+                <!--</div >-->
+                <!--<br/>-->
+                <div class="row" id="divrecups">
+                    <div class="row col-sm-3">
+                        <!--<input type="text" class="form-control input-sm fields" id="categorie" name="categ" placeholder="Catégorie " required="required">-->
+                        <select id="categorie" name="categ" data-live-search="true" class="form-control show-tick"  onchange="OnChangeFunction()" required>
+                            <option th:each="typeusers: ${listcat}" th:value="${typeusers}" th:text="${typeusers}" ></option>
+                        </select>
+                    </div >
+                    <div class="row col-sm-1">
+                    </div >
+                    <div class="row col-sm-3">
+                        <!--<input type="text" class="form-control input-sm fields" id="service" name="serv" placeholder="Service" required="required">-->
+                        <select id="service" name="serv" data-live-search="true" class="form-control show-tick"  required>
+                            <option th:each="typeserv: ${listserv}" th:value="${typeserv}" th:text="${typeserv}" ></option>
+                        </select>
+                    </div >
+                </div >
+                <br/>
+                <div class="row" id="divre">
+                    <div class="row col-sm-3">
+                        <!--<input type="text" class="form-control input-sm fields" id="nature" name="nature" placeholder="Nature" required="required">-->
+                        <select  class="form-control input-sm fields" id="nature" name="nature" placeholder="Nature" >
+                            <option value="Test" selected="selected">Test</option>
+                            <option value="Projet">Projet</option>
+                            <option value="Service" >Service</option>
+                            <option value="Suspension Provisoire">Suspension Provisoire</option>
+                            <option value="Reseller">Reseller</option>
+                            <option value="Credit Voix">Credit Voix</option>
+                            <option value="Compte Tmoney">Compte Tmoney</option>
+                            <option value="Numéro SVA">Numéro SVA</option>
+                            <option value="VTU">VTU</option>
+                            <option value="Systeme">Systeme</option>
+                            <option value="Roaming">Roaming</option>
+                            <option value="Grands Comptes">Grands Comptes</option>
+                            <option value="Client_TMoney">Client_TMoney</option>
+                            <option value="Grands Comptes">Grands Comptes</option>
+                        </select>
+                    </div >
+                    <div class="row col-sm-1">
+                    </div >
+                    <!--<div class="row col-sm-3">-->
+                        <!--<button class="btn btn-success" id="Ajouter">Ajouter</button>-->
+                    <!--</div >-->
+                </div >
+                <br/>
+                <div class="row" id="divres">
+                    <div class="row col-sm-3">
+                        <button class="btn btn-success" id="Ajouter">Ajouter</button>
+                    </div >
+                </div >
+                <!--<div class="row" id="divret">-->
+                    <!--<div class="row col-sm-3">-->
+                        <!--<button class="btn btn-primary" id="Ajoute">Ajouter</button>-->
+                    <!--</div >-->
+                <!--</div >-->
+                <br/>
+                <div class="row">
+                    <br/>
+                    <label>---------------------------------------------------------------------------------------------------------------------------------------------</label>
+                </div >
+                <br/>
+                <div  class="table-responsive">
+                    <table id="data-table-command" class="table table-striped table-vmiddle">
+                        <thead>
+                        <tr >
+                            <th data-column-id="id" data-visible="false">ID</th>
+                            <th data-column-id="Mobile">Mobile</th>
+                            <th data-column-id="Nature"><b>Nature</b></th>
+                            <th data-column-id="Catégorie"><b>Catégorie</b></th>
+                            <th data-column-id="Service"><b>Service</b></th>
+                            <th data-column-id="commands" data-formatter="commands" data-sortable="false">Commandes</th>
+
+                            <!--<th data-column-id="commands" data-formatter="commands" data-sortable="false">Commandes</th>-->
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="det: ${listdet}">
+                            <td th:text="${det.id }"></td>
+                            <td th:text="${det.cardNbr }"></td>
+                            <td th:text="${det.nature}"></td>
+                            <td th:text="${det.categorie}"></td>
+                            <td th:text="${det.service}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Confirmation de la suppression</h4>
+                    </div>
+                    <input type="text" id="delcoded" name="coded" hidden="hidden"/>
+                    <div class="card-body card-padding">
+                        <div class="row">
+                            <div class="col-sm-12 m-b-20">
+                                <h4 style="color : red"><b>Êtes-vous sûr de vouloir supprimer ?</b></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" data-dismiss="modal">Non</button>
+                        <button class="btn btn-primary" id="yesDelete">Oui</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+</body>
+<script type="text/javascript" th:src="@{/js/material_js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/sweet-alert.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/jquery.nicescroll.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/waves.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/functions.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/jquery.datetimepicker.full.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/jquery.bootgrid.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/bootstrap-select.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/fileinput.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/jquery.flot.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/jquery.flot.resize.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/curvedLines.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/jquery.sparkline.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/jquery.easypiechart.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/curved-line-chart.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/line-chart.js}"></script>
+<script type="text/javascript" th:src="@{/js/material_js/charts.js}"></script>
+<script th:src="@{/js/functions.js}"></script>
+
+</html>
+<script type="text/javascript">
+
+    $.ajax({
+        type : 'POST',
+        url : '/selection_service',
+        data : {categorie : $('#categorie').val()},
+        //dataType : 'string',
+        success : function(data){
+
+
+
+            $('#service').html(data);
+
+        },
+        error : function(data) {
+            //Erreur
+        }
+    });
+
+    // if ($('#operation')[0].checked == true){
+    //     $('#divrecup').addClass('hide');
+    //     $('#divret').addClass('hide');
+    //     $('#divres').removeClass('hide');
+    //     //  $('#dateDebut').val()
+    //
+    //     $('#divrech').removeClass('hide');
+    //
+    // }else if ($('#recuperation')[0].checked == true){
+    //     $('#divrecup').removeClass('hide');
+    //     //  $('#noms').val()
+    //     $('#divrech').addClass('hide');
+    //
+    //     $('#divret').removeClass('hide');
+    //
+    //     $('#divres').addClass('hide');
+    // }
+
+
+
+    function check(){
+
+
+        if ($('#operation')[0].checked == true){
+            $('#divrecup').addClass('hide');
+          //  $('#dateDebut').val()
+            $('#divrech').removeClass('hide');
+            $('#divret').addClass('hide');
+            $('#divres').removeClass('hide');
+
+        }else if ($('#recuperation')[0].checked == true){
+            $('#divrecup').removeClass('hide');
+          //  $('#noms').val()
+            $('#divrech').addClass('hide');
+            $('#divret').removeClass('hide');
+
+            $('#divres').addClass('hide');
+        }
+    }
+
+    function OnChangeFunction() {
+        $.ajax({
+            type : 'POST',
+            url : '/selection_service',
+            data : {categorie : $('#categorie').val()},
+            //dataType : 'string',
+            success : function(data){
+
+
+
+                $('#service').html(data);
+
+            },
+            error : function(data) {
+                //Erreur
+            }
+        });
+    }
+
+
+    $('#recuperer').click(function() {
+           window.location.href='/print?month='+$('#mois').val();
+
+        }
+    );
+
+    $('#recherchenumero').click(function() {
+            //  window.location.href='/annuler?delcoded='+$('#delcoded').val();
+
+        window.location.href='/recherche?mobile='+$('#recherche').val();
+
+        }
+    );
+
+
+    var grid = $("#data-table-command").bootgrid({
+        css: {
+            icon: 'zmdi icon',
+            iconColumns: 'zmdi-view-module',
+            iconDown: 'zmdi-expand-more',
+            iconRefresh: 'zmdi-refresh',
+            iconUp: 'zmdi-expand-less'
+        },
+        formatters: {
+            "commands": function(column, row) {
+                // return "<button type=\"button\" title='Validation Détails' class=\"btn bgm-orange btn-icon edit\"  data-toggle=\"modal\" data-target=\"#confirmEdit\" data-row-id=\"" + row.sec + "\"><span class=\"zmdi zmdi-check\" ></span></button> " +
+                return "<button type=\"button\" title='Suppression Numéro' class=\"btn bgm-red btn-icon delete\" data-toggle=\"modal\" data-target=\"#confirmDelete\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-shopping-basket\"></span></button>";
+            }
+        }
+    }).on("loaded.rs.jquery.bootgrid", function () {
+        grid.find(".edit").on("click", function (e) {
+            var secureCode = $(this).data("row-id");
+
+            $('#coded').val(secureCode);
+            $($(this).attr("data-target")).modal("show");
+        }).end().find(".delete").on("click", function (e) {
+            var secureCodes = $(this).data("row-id");
+
+            $('#delcoded').val(secureCodes);
+            $($(this).attr("data-target")).modal("show");
+        })
+    });
+
+
+    // Ajout de numero simple a ne pas supprimer
+    $('#Ajouter').click(function() {
+           window.location.href='/ajouter?mobile='+$('#Mobile').val()+'&categories='+$('#categorie').val()+'&services='+$('#service').val() +'&natures='+$('#nature').val();
+        }
+    );
+
+
+    // Ajout de numero multiple par excel file a ne pas supprimer
+    $('#Ajoute').click(function() {
+
+            window.location.href='/ajoute?mobile='+$('#fichier').file()+'&categories='+$('#categorie').val()+'&services='+$('#service').val() +'&natures='+$('#nature').val();
+        }
+    );
+
+
+
+    $('#yesDelete').click(function() {
+        window.location.href='/supprimer?delcoded='+$('#delcoded').val();
+        }
+    );
+    function checkFunction() {
+
+        // If the checkbox is checked, display the output text
+        var checkBox = document.getElementById("openpdf");
+
+        if (checkBox.checked == true){
+            $('#actionpdf').val("check");
+        } else {
+            $('#actionpdf').val("nocheck");
+        }
+    }
+
+
+
+    jQuery.datetimepicker.setLocale('fr');
+    $(function(){
+        $('#dateDebut').datetimepicker({
+            timepicker : false,
+            format:'Y-m-d',
+            formatDate:'d-m-Y',
+        });
+    });
+    $(function(){
+        $('#dateFin').datetimepicker({
+            timepicker : false,
+            format:'Y-m-d',
+            formatDate:'d-m-Y',
+        });
+    });
+
+    $('#searchcalls').submit(function() {
+            $('.lds-ring').removeClass('hide');
+        }
+    );
+
+
+    function ch() {
+        if ($('#typeSearch1')[0].checked == true){
+
+            $('#fieldSearch').attr('placeholder','Saisir le numéro');
+
+            $('.numeroImei').removeClass('hide');
+            $('.imeiSecond').removeClass('hide');
+            $('.numeroSecond').addClass('hide');
+
+            $('#fieldSearch').removeClass('hide');
+            $('#fieldSearch').val('');
+
+            $('#nom').addClass('hide');
+            $('#nom').val('XXX');
+
+            $('#prenoms').addClass('hide');
+            $('#prenoms').val('XXX');
+
+        }else if ($('#typeSearch2')[0].checked == true){
+
+            $('#fieldSearch').attr('placeholder','Saisir l\'IMEI');
+
+            $('.numeroImei').removeClass('hide');
+            $('.imeiSecond').addClass('hide');
+            $('.numeroSecond').removeClass('hide');
+
+            $('#fieldSearch').removeClass('hide');
+            $('#fieldSearch').val('');
+
+            $('#nom').addClass('hide');
+            $('#nom').val('XXX');
+
+            $('#prenoms').addClass('hide');
+            $('#prenoms').val('XXX');
+
+        }else{
+
+            if( $('#typeSearch3')[0].checked == true) {
+
+                $('#fieldSearch').attr('placeholder','Saisir l\'IMSI');
+
+            }else{
+
+                $('#fieldSearch').attr('placeholder','Code de recharge');
+
+            }
+
+            $('.imeiSecond').addClass('hide');
+            $('.numeroSecond').addClass('hide');
+            $('.numeroImei').addClass('hide');
+
+            $('#fieldSearch').removeClass('hide');
+            $('#fieldSearch').val('');
+
+            $('#nom').addClass('hide');
+            $('#nom').val('XXX');
+
+            $('#prenoms').addClass('hide');
+            $('#prenoms').val('XXX');
+
+            if($('#typeSearch4')[0].checked == true){
+
+                $('#fieldSearch').addClass('hide');
+                $('#fieldSearch').val('XXX');
+
+                $('#nom').removeClass('hide');
+                $('#nom').val('');
+
+                $('#prenoms').removeClass('hide');
+                $('#prenoms').val('');
+
+            }
+        }
+    }
+
+</script>
