@@ -26,9 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Configuration
 @EnableScheduling
 public class CronPlanner {
-    @Autowired
-    private JavaMailSender javaMailSender;
-
 
 
     //test
@@ -36,40 +33,41 @@ public class CronPlanner {
     public void scheduleFixedDelayTask() {
         System.out.println(
                 "Fixed delay task - " + System.currentTimeMillis() / 1000);
-    }*/
+    }
     @Scheduled(cron = "5 * * * * ?")
     public void dailycheck()throws MessagingException, UnsupportedEncodingException {
 
         System.out.println("Bonjour leve toi");
     }
+*/
 
-/*
     @Autowired
     private JavaMailSender mailSender;
 
-    @Scheduled(cron = "0 46 18 1/1 * ? *")
-    public void sendEmail(String toEmail,
+
+    @Scheduled(cron = "0 50 16 * * *")
+    public void sendEmail(/*String toEmail,
                           String subject,
-                          String body){
+                          String body*/){
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("othnielignacio@gmail.com");
-        message.setTo(toEmail);
-        message.setText(body);
-        message.setSubject(subject);
+        message.setTo("ananijosue08@gmail.com");
+        message.setText("This is a test");
+        message.setSubject("Test");
 
         mailSender.send(message);
 
         System.out.println("Mail sent successfully...");
     }
 
+    /*
+    //@Scheduled(cron="0/3 0 * 1/1 * ? *")
+        @Scheduled(fixedDelay = 1000)
+        public void dailycheck()throws MessagingException, UnsupportedEncodingException {
 
-//@Scheduled(cron="0/3 0 * 1/1 * ? *")
-    @Scheduled(fixedDelay = 1000)
-    public void dailycheck()throws MessagingException, UnsupportedEncodingException {
-
-        System.out.println("Bonjour leve toi");
-    }
-*/
+            System.out.println("Bonjour leve toi");
+        }
+    */
 /*
     @Autowired
     public CronPlanner(JavaMailSender javaMailSender){
@@ -79,7 +77,7 @@ public class CronPlanner {
     public void dailycheck() throws MessagingException, UnsupportedEncodingException {
         System.out.println("Bonjour, lève toi");
     }
-*/
+
     public void sendMail() throws MessagingException, UnsupportedEncodingException{
 
         String adresse = "othnielignacio@yahoo.com";
@@ -141,6 +139,6 @@ public class CronPlanner {
 
         return escapedData;
     }
-
+*/
 
 }
