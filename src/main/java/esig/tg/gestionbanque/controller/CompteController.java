@@ -9,12 +9,11 @@ import esig.tg.gestionbanque.domain.TypeCompte;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -25,6 +24,7 @@ public class CompteController {
     private CompteRepository compteRepository;
     private TypeCompteRepository typeCompteRepository;
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+    private Object csvExportation;
 
     @Autowired
     public CompteController(ClientRepository clientRepository, CompteRepository compteRepository, TypeCompteRepository typeCompteRepository) {
@@ -33,7 +33,6 @@ public class CompteController {
         this.compteRepository = compteRepository;
         this.typeCompteRepository = typeCompteRepository;
     }
-
 
     @GetMapping("/getcompte")
     public String getAllCompte(Model model){
@@ -117,6 +116,5 @@ public class CompteController {
         return "redirect:/getcompte";
 
   }
-
 
 }
