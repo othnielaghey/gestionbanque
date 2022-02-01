@@ -1,0 +1,3 @@
+"id","client_op_id_client","compte_op_id_cpt","solde_operation","commentaire","type_operation","date_operation"
+"4","5","3","200000","Depot de 200000","depot","2022-01-09 15:00:38.981"
+"5","8","4","400000","Retrait de 400000","retrait","2022-01-09 15:01:10.409"

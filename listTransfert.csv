@@ -1,0 +1,4 @@
+"id","client_transft_id_client","compte_transft_id_cpt","commentaire","date_transfert","montant","num_compte_expediteur","num_compte_recepteur","montant_transfert"
+"2","8","4","Transfert de 200000","2022-01-14 10:09:05.279","","00001","00002","200000"
+"3","5","3","Transfert de 300000","2022-01-14 10:13:40.222","","00002","00001","300000"
+"4","9","5","Transfert de 200000 pour les frais de maternité","2022-01-26 15:09:59.959","","00001","00003","200000"
